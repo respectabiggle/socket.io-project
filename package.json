@@ -1,5 +1,5 @@
 {
-  "name": "connecting-external-and-internal-websockets-with-socket.io",
+  "name": "socket.io-project",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
