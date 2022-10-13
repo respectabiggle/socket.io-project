@@ -1,4 +1,4 @@
-///////////////////   SECTION 1:  EXPRESS  /////////////////////
+///////////////////   SECTION 1:  EXPRESS  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // #region
 const express = require('express');
 const app = express();
@@ -7,7 +7,7 @@ server.listen(3511, () => console.log("Express running! on port 3511"));
 app.use(express.static('public'));
 // #endregion
 
-///////////////////    SECTION 2:  SOCKET.IO - INTERNAL WEBSOCKET - (using Express server to connect server.js and client.js)   ///////////////////////////////////////////////
+///////////////////    SECTION 2:  SOCKET.IO - INTERNAL WEBSOCKET - (using Express server to connect server.js and client.js)   /////////////////////////////////////
 // #region Socket.io Express Server
 
         // Settin up Socket.io Express Server
@@ -40,21 +40,26 @@ app.use(express.static('public'));
 
 // #endregion Socket.io Express Server
 
-///////////////////    SECTION 3:  WS - EXTERNAL WEBSOCKET - (connecting to external source using the "ws" library)    ////////////////////////////////////////////////////////
+
+///////////////////    SECTION 3:  WS - EXTERNAL WEBSOCKET - (connecting to external source using the "ws" library)    //////////////////////////////////////////////
 // #region External Websocket
 
 // creating a new Websocket - to connect to External Data source 
     const { WebSocket } = require('ws');
     const externalClient = new WebSocket('wss://stream.binance.com:9443/ws/ethusdt@trade');
+    
+// #endregion External Websocket
 
 
+///////////////////    SECTION 4:  PROCESSING THE DATA RECEIVED FROM THE EXTERNAL WEBSOCKET    //////////////////////////////////////////////////////////////////////
+// #region Processing the data
 
 // Variable for:  sending simple data from External Websocket to client.js 
 
     let data;              // we will use this later outside the "externalClient.on" function, so we're declaring it here
 
 
-// Variables for: Optional Case Example - see Section 5 below - if we want to send multiple values together as an object to client.js 
+// Variables for: Optional Case Example - see Section 6 below - if we want to send multiple values together as an object to client.js 
 // #region
     let externalDataInAnObject;                         // we may want the option to use these variables at another time outside the "externalClient.on" function,
     let exampleVariable = 11;                                    // so we're declaring them here
@@ -94,10 +99,13 @@ app.use(express.static('public'));
         data = externalDataExtractedValueFixedAsFloat;                      // and finally, we rename this to make it easier to deal with
         // console.log(data);                                               // un-comment to see
 
-// #endregion External Websocket
 
-///////////////////    SECTION 4:  SOCKET.IO - INTERNAL WEBSOCKET - (passing data along internal websocket, from server.js to client.js )  ///////////////
-// #region Passing Data
+
+// #endregion Processing the data
+
+
+///////////////////    SECTION 5:  SOCKET.IO - INTERNAL WEBSOCKET - (passing data along internal websocket, from server.js to client.js )  //////////////////////////
+// #region Passing a Number as Data
 
     // we use socket.io's "emit" method 
     // we will create a socket.io channel named 'numberChannel' 
@@ -106,60 +114,67 @@ app.use(express.static('public'));
          io.emit('numberChannel', data);                              
 
 
+// #endregion Passing Data
 
 
-///////////////////    SECTION 5:  SOCKET.IO - INTERNAL WEBSOCKET - (passing AN OBJECT along internal websocket, from server.js to client.js )  //////////
+///////////////////    SECTION 6:  SOCKET.IO - INTERNAL WEBSOCKET - (passing AN OBJECT along internal websocket, from server.js to client.js )  /////////////////////
+// #region Passing an Object as Data
 
     // in some scenarios, we may want to send a multiple values at the same time, on the same channel, from server.js to client.js
     // we can bundle them into a JSON object and pass the whole object via the internal stream
 
-    // for this purpose, we will create a new, separate socket.io channel 'objectChannel'
+    // for this purpose, we will create a new, separate socket.io channel named 'objectChannel'
     
-        // t client.js to handle the incoming stream differently -- 
-            // it will be expecting an object, consisting of key-value pairs
-
-        // we will name this channel 
+        // because client.js will need to handle the incoming stream differently -- 
+        // it will be expecting an object, consisting of key-value pairs
 
 
-        // Building the object, which includes the "data", above, plus another imaginary value   
-            letexternalDataInAnObject = { data, exampleVariable }; 
+            // Building the object, which includes the "data", above, plus another imaginary value   
+                letexternalDataInAnObject = { data, exampleVariable }; 
 
-        // emitting the object 
-            io.emit('objectChannel', externalDataInAnObject); 
+            // emitting the object 
+                io.emit('objectChannel', externalDataInAnObject); 
 
 
 
 });
 
-// #endregion Passing Data
+// #endregion Passing an Object as Data
 
 
-// #region  OPTIONAL 
-    // An optional second way to send data to client.js:  
+///////////////////    SECTION 7:  OPTIONAL:  PASSING DATA FROM *OUTSIDE* THE EXTERNALCLIENT.ON FUNCTION  ///////////////////////////////////////////////////////////
+// #region  working with "data" outside the main function
+
+    // #region Explanation and Justification
+
+    // Here I demonstrate that "data" is available outside the "externalClient.on" function.
+
+        // The value of "data" is refreshed constantly.
+            // However, unless you have a trigger to push data down the stream, such as .on('message') (Section 4)
+            // the data will only be sent to the client once        
+            
+            // Solution:  you can set up a different method of "pushing" the data with the setInterval() method
 
 
-    // Here I demonstrate that the (data) value from above is available outside the "externalClient.on" function.
-
-    // Limitation: 
-        // The value is refreshed constantly.
-        // However, in the example ("emit") below, it does not emit persistently as a stream. 
-            // Solution:  You can send the refreshed data to client.js, at whatever frequency you wish, using the setInterval method.
-    
-    // Purpose:  this may save network resources (depending on Interval frequency), compared to an always-open stream
-    // However it may not 
-
-    // last note:  we are still using the same 'numberChannel', as this channel is still set up to receive a simple number, same as in the first example above
-
-        // const sendDataToClient = function (){
-
-       //     io.emit('numberChannel', data);
-        
-        //     // console.log(data);                            // uncomment to see that the value of "data" is being refreshed every Interval      
-     
-        // };
-        // setInterval(sendDataToClient, 500);
+    // #endregion Explanation and Justification
 
 
-// #endregion     OPTIONAL - Optional way to send data to client.js:  
+            // const sendDataToClient = function (){                    // uncomment this entire section - lines 160-167 - to see/use the function 
 
+            //     io.emit('numberChannel', data);
+                
+                //     // console.log(data);                            // uncomment to see that the value of "data" is being refreshed      
+            
+                // };
+            // setInterval(sendDataToClient, 500);
+
+
+    // Note - this method of pushing data may be chosen for number of reasons, amongst which:
+        // using this method this may or may not save network resources (depending on Interval frequency), 
+        // compared to an always-open stream
+        // I honestly don't know
+
+
+
+// #endregion -  working with "data" outside the main function
 
