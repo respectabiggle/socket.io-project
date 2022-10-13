@@ -11,3 +11,11 @@ Check package.json:
     socket.io-client
     ws
     express
+
+
+
+add to index.html 
+
+    <body>
+        <script src="../socket.io/socket.io.js"></script>   
+    </body>
