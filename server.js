@@ -7,7 +7,7 @@ app.use(express.static('public'));
 
 
 const { Server } = require('socket.io'); 
-const io = new Server(server);      
+const io = new Server(server);       
 
 
 const { WebSocket } = require('ws');
