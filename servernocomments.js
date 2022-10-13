@@ -2,8 +2,8 @@
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app); 
-server.listen(3511, () => console.log("Express running! on port 3511")); 
-app.use(express.static('public'));
+server.listen(3512, () => console.log("Express running! on port 3512")); 
+app.use(express.static('publicnocomments'));
 
 
 

@@ -1,4 +1,9 @@
 
+
+    // IMPORTANT  do not forget to add to the <body> of index.html:        <script src="../socket.io/socket.io.js"></script>       
+
+
+
 ///////////////////   SECTION 1:  SETTING UP SOCKET.IO INTERNAL WEBSOCKET  IN CLIENT.JS    /////////////////////
 // #region Setting up internal socket.io websocket 
 
@@ -27,16 +32,16 @@
 
     // #region Receiving data from server.js on socket.io channel 'numberChannel', 
 
-            let data;                                                       // Optional:  needed to use data outside socket (see Section 4)
+            let dataNumber;                                                       // Optional:  needed to use data outside socket (see Section 4)
         
 
-            socket.on('numberChannel', (foo) => {
+            socket.on('numberChannel', (fooNumber) => {
 
-                    // console.log(foo);                                    //un-comment to see in console   <===  SUCCESS!!!  HERE IS WHAT ALL YOUR HARD WORK WAS FOR
+                    // console.log(fooNumber);                                    //un-comment to see in console   <===  SUCCESS!!!  HERE IS WHAT ALL YOUR HARD WORK WAS FOR
 
                     
                     // Optional:  needed to use data outside socket (see Section 4)
-                        data = foo;
+                        dataNumber = fooNumber;
 
             });
 
@@ -49,19 +54,16 @@
 // #region Receiving Data as an Object
 
         // Variables
-            let fooObject;
+
             let dataObject;
 
     // #region Receiving data Object from server.js on socket.io channel 'objectChannel', 
 
-            socket.on('objectChannel', function(fooObject) {
-                
+            socket.on('objectChannel', function(fooObject) {                
                         // console.log(fooObject);                                      // un-comment to see in browser
 
-
-                // Optional:  needed to use data outside socket (see Section 4)    
+                // Optional:  needed to use data outside socket (Section 4)    
                     dataObject = fooObject;
-
              });
              
 // #region Receiving Data as an Object
@@ -77,18 +79,19 @@
 
         // un-comment section to activate function
 
-            // const logNumber = function (fooNumber) {
-            //     console.log(data);                                                       // un-comment to see in browser console
-            // }
-            // setInterval(logNumber, 500);
+                    // const logNumber = () => {
+                    //     console.log(dataNumber); 
+                    // };
+                    // setInterval(logNumber, 500);
 
 
         // un-comment section to activate function
 
-            // const logObject = function (fooObject) {
-            //     console.log(dataObject);                                               // un-comment to see in browser console
-            // };
-            // setInterval(logObject, 500);
+                // const logObject = () => {
+                //     console.log(dataObject);  
+                // };
+                // setInterval(logObject, 500);
+
 
             
 
