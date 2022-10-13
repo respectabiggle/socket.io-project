@@ -17,7 +17,7 @@ app.use(express.static('public'));
 
 
         // Instantiating? Socket.io Express Server
-        io.on('connection', (socket) => {
+        io.on('connection', (socket) => { 
 
 
         // Demonstrating that server.js and client.js are connected.  
@@ -140,7 +140,7 @@ app.use(express.static('public'));
 });
 
 // #endregion Passing an Object as Data
-
+ 
 
 ///////////////////    SECTION 7:  OPTIONAL:  PASSING DATA FROM *OUTSIDE* THE "EXTERNALCLIENT.ON" FUNCTION  ///////////////////////////////////////////////////////
 // #region  working with "data" outside the main function
