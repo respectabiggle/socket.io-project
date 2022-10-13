@@ -1,10 +1,18 @@
 const socket = io();
 
-socket.on('numberChannel', (fooNumber) => {
-    // console.log(fooNumber);                                            // <==  THIS IS WHAT YOU ARE LOOKING FOR
+socket.on('channel1', (foo) => {
+    console.log(foo);          
 });
 
 
 
 
-    // IMPORTANT  do not forget to add to the <body> of index.html:        <script src="../socket.io/socket.io.js"></script>   
+    // IMPORTANT
+
+            // add to index.html <body> : 
+            
+                    // <script src="../socket.io/socket.io.js"></script>   
+            
+            // add to dependencies
+            
+                    // socket.io-client to dependencies
