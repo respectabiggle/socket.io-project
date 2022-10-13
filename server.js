@@ -56,7 +56,8 @@ app.use(express.static('public'));
 
 // Variable for:  sending simple data from External Websocket to client.js 
 
-    let data;              // we will use this later outside the "externalClient.on" function, so we're declaring it here
+    let data;               // we will use both within, but also outside the "externalClient.on" function,
+                            // so we're declaring it outside the function
 
 
 // Variables for: Optional Case Example - see Section 6 below - if we want to send multiple values together as an object to client.js 
