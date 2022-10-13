@@ -71,7 +71,7 @@
 
 
 
-///////////////////    SECTION 4:  RECEIVING DATA FROM SERVER.JS [OBJECT]    ///////////////
+///////////////////    SECTION 4:   USING "DATA" OUTSIDE THE SOCKET.IO CHANNEL    ///////////////
 // #region using data *Outside* socket
 
     // note:  see comments at server.js, Section 7, for notes on why setInterval is used here
