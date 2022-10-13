@@ -1,4 +1,4 @@
-///////////////////   SECTION 1:  EXPRESS  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////   SECTION 1:  EXPRESS  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // #region
 const express = require('express');
 const app = express();
@@ -7,7 +7,7 @@ server.listen(3511, () => console.log("Express running! on port 3511"));
 app.use(express.static('public'));
 // #endregion
 
-///////////////////    SECTION 2:  SOCKET.IO - INTERNAL WEBSOCKET - (using Express server to connect server.js and client.js)   /////////////////////////////////////
+///////////////////    SECTION 2:  SOCKET.IO - INTERNAL WEBSOCKET - (using Express server to connect server.js and client.js)   ///////////////////////////////////
 // #region Socket.io Express Server
 
         // Settin up Socket.io Express Server
@@ -41,7 +41,7 @@ app.use(express.static('public'));
 // #endregion Socket.io Express Server
 
 
-///////////////////    SECTION 3:  WS - EXTERNAL WEBSOCKET - (connecting to external source using the "ws" library)    //////////////////////////////////////////////
+///////////////////    SECTION 3:  WS - EXTERNAL WEBSOCKET - (connecting to external source using the "ws" library)    ////////////////////////////////////////////
 // #region External Websocket
 
 // creating a new Websocket - to connect to External Data source 
@@ -51,7 +51,7 @@ app.use(express.static('public'));
 // #endregion External Websocket
 
 
-///////////////////    SECTION 4:  PROCESSING THE DATA RECEIVED FROM THE EXTERNAL WEBSOCKET    //////////////////////////////////////////////////////////////////////
+///////////////////    SECTION 4:  PROCESSING THE DATA RECEIVED FROM THE EXTERNAL WEBSOCKET    ////////////////////////////////////////////////////////////////////
 // #region Processing the data
 
 // Variable for:  sending simple data from External Websocket to client.js 
@@ -104,7 +104,7 @@ app.use(express.static('public'));
 // #endregion Processing the data
 
 
-///////////////////    SECTION 5:  SOCKET.IO - INTERNAL WEBSOCKET - (passing data along internal websocket, from server.js to client.js )  //////////////////////////
+///////////////////    SECTION 5:  SOCKET.IO - INTERNAL WEBSOCKET - (passing data along internal websocket, from server.js to client.js )  ////////////////////////
 // #region Passing a Number as Data
 
     // we use socket.io's "emit" method 
@@ -117,7 +117,7 @@ app.use(express.static('public'));
 // #endregion Passing Data
 
 
-///////////////////    SECTION 6:  SOCKET.IO - INTERNAL WEBSOCKET - (passing AN OBJECT along internal websocket, from server.js to client.js )  /////////////////////
+///////////////////    SECTION 6:  SOCKET.IO - INTERNAL WEBSOCKET - (passing AN OBJECT along internal websocket, from server.js to client.js )  ///////////////////
 // #region Passing an Object as Data
 
     // in some scenarios, we may want to send a multiple values at the same time, on the same channel, from server.js to client.js
@@ -142,7 +142,7 @@ app.use(express.static('public'));
 // #endregion Passing an Object as Data
 
 
-///////////////////    SECTION 7:  OPTIONAL:  PASSING DATA FROM *OUTSIDE* THE EXTERNALCLIENT.ON FUNCTION  ///////////////////////////////////////////////////////////
+///////////////////    SECTION 7:  OPTIONAL:  PASSING DATA FROM *OUTSIDE* THE "EXTERNALCLIENT.ON" FUNCTION  ///////////////////////////////////////////////////////
 // #region  working with "data" outside the main function
 
     // #region Explanation and Justification
