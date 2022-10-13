@@ -1,4 +1,4 @@
-///////////////////   SECTION 1:  EXPRESS  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////   SECTION 1:  EXPRESS  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // #region
 const express = require('express');
 const app = express();
@@ -7,13 +7,14 @@ server.listen(3511, () => console.log("Express running! on port 3511"));
 app.use(express.static('public'));
 // #endregion
 
-///////////////////    SECTION 2:  SOCKET.IO - INTERNAL WEBSOCKET - (using Express server to connect server.js and client.js)   ///////////////////////////////////
+///////////////////    SECTION 2:  SOCKET.IO - INTERNAL WEBSOCKET - (using Express server to connect server.js and client.js)   //////////////////////////
 // #region Socket.io Express Server
 
         // Settin up Socket.io Express Server
         const { Server } = require('socket.io'); 
-        const io = new Server(server);                      // socket.io is using the same server that was created by Express (don't know if I'm saying this right)
-                                                            // iirc, this works because "Express is using the http protocol, and socket.io is using the wss protocol"
+        const io = new Server(server);                  // socket.io is using the same server (port?) as Express (don't know if I'm saying this right)
+                                                        // iirc, this works because "Express is using the http protocol
+                                                        // and socket.io is using the wss protocol"
 
 
         // Instantiating? Socket.io Express Server
@@ -41,7 +42,7 @@ app.use(express.static('public'));
 // #endregion Socket.io Express Server
 
 
-///////////////////    SECTION 3:  WS - EXTERNAL WEBSOCKET - (connecting to external source using the "ws" library)    ////////////////////////////////////////////
+///////////////////    SECTION 3:  WS - EXTERNAL WEBSOCKET - (connecting to external source using the "ws" library)    ///////////////////////////////////
 // #region External Websocket
 
 // creating a new Websocket - to connect to External Data source 
@@ -51,19 +52,19 @@ app.use(express.static('public'));
 // #endregion External Websocket
 
 
-///////////////////    SECTION 4:  PROCESSING THE DATA RECEIVED FROM THE EXTERNAL WEBSOCKET    ////////////////////////////////////////////////////////////////////
+///////////////////    SECTION 4:  PROCESSING THE DATA RECEIVED FROM THE EXTERNAL WEBSOCKET    ///////////////////////////////////////////////////////////
 // #region Processing the data
 
 // Variable for:  sending simple data from External Websocket to client.js 
 
-    let data;               // we will use both within, but also outside the "externalClient.on" function,
+    let data;               // we will use "data" both within, but also outside the "externalClient.on" function,
                             // so we're declaring it outside the function
 
 
 // Variables for: Optional Case Example - see Section 6 below - if we want to send multiple values together as an object to client.js 
 // #region
-    let externalDataInAnObject;                         // we may want the option to use these variables at another time outside the "externalClient.on" function,
-    let exampleVariable = 11;                                    // so we're declaring them here
+    let externalDataInAnObject;         // we may want the option to use these variables at another time outside the "externalClient.on" function,
+    let exampleVariable = 11;           // so we're declaring them here
 // #endregion
 
 
@@ -75,11 +76,12 @@ app.use(express.static('public'));
 
     // Receiving Data from the External Websocket, and Extracting and Processing Desired Value from Data 
 
-        externalData = (event);                                             // this returns the data as a Buffer of raw binary data.  this is not what we want
-        // console.log(externalData);                                       // un-comment to see
+        externalData = (event);                                             // this returns the data as a Buffer of raw binary data.  
+                                                                            // this is not what we want
                                                                             // ref:  https://nodejs.org/en/knowledge/advanced/buffers/how-to-use-buffers/
                                                                             // ref:  https://stackoverflow.com/a/69485504/19651059
-
+        // console.log(externalData);                                       // un-comment to see
+        
         externalDataParsed = JSON.parse(event);                             // JSON.parse turns the data into a JSON object that we can deal with
                                                                             // however, the data is an array of key:value pairs.
                                                                             //  we may only be interested in one of the values
@@ -91,11 +93,11 @@ app.use(express.static('public'));
         // console.log(externalDataExtractedValue);                         // un-comment to see
 
 
-        externalDataExtractedValueFixed = parseFloat(externalDataParsed.p).toFixed(2);              // for some reason, .toFixed(2) turns the value for p into a string
-        // console.log(typeof externalDataExtractedValueFixed);                                     // un-comment to see
+        externalDataExtractedValueFixed = parseFloat(externalDataParsed.p).toFixed(2);  // for some reason, .toFixed(2) turns the value for p into a string
+        // console.log(typeof externalDataExtractedValueFixed);                         // un-comment to see
         
-        externalDataExtractedValueFixedAsFloat = parseFloat(externalDataExtractedValueFixed);            // so we re-convert the value to a (floating-point) number
-        // console.log(externalDataExtractedValueFixedAsFloat);                                          // un-comment to see
+        externalDataExtractedValueFixedAsFloat = parseFloat(externalDataExtractedValueFixed);   // so we re-convert the value to a (floating-point) number
+        // console.log(externalDataExtractedValueFixedAsFloat);                                 // un-comment to see
 
         data = externalDataExtractedValueFixedAsFloat;                      // and finally, we rename this to make it easier to deal with
         // console.log(data);                                               // un-comment to see
@@ -105,7 +107,7 @@ app.use(express.static('public'));
 // #endregion Processing the data
 
 
-///////////////////    SECTION 5:  SOCKET.IO - INTERNAL WEBSOCKET - (passing data along internal websocket, from server.js to client.js )  ////////////////////////
+///////////////////    SECTION 5:  SOCKET.IO - INTERNAL WEBSOCKET - (passing data along internal websocket, from server.js to client.js )  ///////////////
 // #region Passing a Number as Data
 
     // we use socket.io's "emit" method 
@@ -118,7 +120,7 @@ app.use(express.static('public'));
 // #endregion Passing Data
 
 
-///////////////////    SECTION 6:  SOCKET.IO - INTERNAL WEBSOCKET - (passing AN OBJECT along internal websocket, from server.js to client.js )  ///////////////////
+///////////////////    SECTION 6:  SOCKET.IO - INTERNAL WEBSOCKET - (passing AN OBJECT along internal websocket, from server.js to client.js )  //////////
 // #region Passing an Object as Data
 
     // in some scenarios, we may want to send a multiple values at the same time, on the same channel, from server.js to client.js
@@ -143,7 +145,7 @@ app.use(express.static('public'));
 // #endregion Passing an Object as Data
  
 
-///////////////////    SECTION 7:  OPTIONAL:  PASSING DATA FROM *OUTSIDE* THE "EXTERNALCLIENT.ON" FUNCTION  ///////////////////////////////////////////////////////
+///////////////////    SECTION 7:  OPTIONAL:  PASSING DATA FROM *OUTSIDE* THE "EXTERNALCLIENT.ON" FUNCTION  //////////////////////////////////////////////
 // #region  working with "data" outside the main function
 
     // #region Explanation and Justification
