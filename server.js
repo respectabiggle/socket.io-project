@@ -130,7 +130,7 @@ app.use(express.static('public'));
 
 
             // Building the object, which includes the "data", above, plus another imaginary value   
-                letexternalDataInAnObject = { data, exampleVariable }; 
+                externalDataInAnObject = { data, exampleVariable }; 
 
             // emitting the object 
                 io.emit('objectChannel', externalDataInAnObject); 
@@ -150,7 +150,11 @@ app.use(express.static('public'));
     // Here I demonstrate that "data" is available outside the "externalClient.on" function.
 
         // The value of "data" is refreshed constantly.
-            // However, unless you have a trigger to push data down the stream, such as .on('message') (Section 4)
+        // You can call on "data" elsewhere in the program and it will be updated/current/refreshed
+
+        
+            // However, to send it to client.js,
+            // unless you have a trigger to push data down the stream, such as .on('message') (Section 4)
             // the data will only be sent to the client once        
             
             // Solution:  you can set up a different method of "pushing" the data with the setInterval() method

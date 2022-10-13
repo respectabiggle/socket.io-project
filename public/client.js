@@ -23,105 +23,75 @@
 
 
 ///////////////////    SECTION 2:  RECEIVING DATA FROM SERVER.JS [SINGLE NUMBER]    ///////////////
+// #region Receiving Data as a Number
 
     // #region Receiving data from server.js on socket.io channel 'numberChannel', 
-    // & logging data
 
-    // Optional:  setting up to use Data outside socket (see Section 4)
-        let data;               
-    
+            let data;                                                       // Optional:  needed to use data outside socket (see Section 4)
+        
 
-        socket.on('numberChannel', (foo) => {
+            socket.on('numberChannel', (foo) => {
 
-            // Logging Data as a NUMBER from Inside Socket
-                // console.log(foo);                                    //un-comment to see in browser console
+                    // console.log(foo);                                    //un-comment to see in console   <===  SUCCESS!!!  HERE IS WHAT ALL YOUR HARD WORK WAS FOR
 
-                
-            // Optional:  setting up to use Data outside socket (see Section 4)
-                data = foo;
+                    
+                    // Optional:  needed to use data outside socket (see Section 4)
+                        data = foo;
 
-        });
+            });
 
 
 
-
-    // #endregion Receiving data from server.js on socket.io channel 'numberChannel'
-
-
-
-
+// #endregion Receiving data from server.js
 
 
 ///////////////////    SECTION 3:  RECEIVING DATA FROM SERVER.JS [OBJECT]    ///////////////
-
-
-    // #region Binance Data As OBJECT - all works except: must destructure obj inside socket (as it seems)
+// #region Receiving Data as an Object
 
         // Variables
             let fooObject;
-            let test0;
-            let test1;
-            let test2;
-            let test3;
-            let test4;
-            let test5;
+            let dataObject;
 
-        // #region Receiving & Logging Binance Data from Server
+    // #region Receiving data Object from server.js on socket.io channel 'objectChannel', 
+
             socket.on('objectChannel', function(fooObject) {
                 
-                // #region Logging Data AS AN OBJECT from Inside Socket - all below works
-
-                    // console.log(fooObject);                                      // works, still an object
-                    
-                //     test0 = fooObject;
-
-                //     test1 = (fooObject.binanceFloat);
-                //     // console.log(test1);
-
-                //     test2 = (fooObject.objNum);
-                //     // console.log(test2);
-
-                //     test3 = (test1 * 5);
-                //     // console.log(test3);
-
-                //     test4 = (test2 * 7);
-                //     // console.log(test4);
-
-                //     test5 = fooObject.binanceFloat * fooObject.objNum;
-                //     // console.log(test5);
-
-                // // #endregion Logging Data from Inside Socket
- 
-            });
-
-            // #region Logging Data AS OBJECT from Outside Socket - works
-                // const logObject = function (fooObject) {
-                //     // console.log(fooObject);                      // does not work
-                //     // console.log(test0);                          // wooooooooooorks
-                //     // console.log(test1);                          // works
-                //     // console.log(test2);                          // WORKS!
-                //     // console.log(test3);                          // WORKS!
-                //     // console.log(test4);                          // wooooorks
-                //     // console.log(test5);                          // works fucker
-                // }
-                // setInterval(logObject, 500);
-            // #endregion Logging Data AS AN OBJECT from Outside Socket
-
-    // #endregion Binance Data as an OBJECT
+                        // console.log(fooObject);                                      // un-comment to see in browser
 
 
+                // Optional:  needed to use data outside socket (see Section 4)    
+                    dataObject = fooObject;
+
+             });
+             
+// #region Receiving Data as an Object
+
+
+
+
+///////////////////    SECTION 4:  RECEIVING DATA FROM SERVER.JS [OBJECT]    ///////////////
 // #region using data *Outside* socket
 
-    // const logNumber = function (fooNumber) {
-    //     // console.log(data);                                    // un-comment to see in browser console
-    // }
-    // setInterval(logNumber, 500);
-
-// #endregion Logging Data as a NUMBER from Outside Socket
+    // note:  see comments at server.js, Section 7, for notes on why setInterval is used here
 
 
+        // un-comment section to activate function
+
+            // const logNumber = function (fooNumber) {
+            //     console.log(data);                                                       // un-comment to see in browser console
+            // }
+            // setInterval(logNumber, 500);
 
 
-    // #endregion Receiving & Logging Binance Data from Server
+        // un-comment section to activate function
 
-// #endregion Binance Socket
+            // const logObject = function (fooObject) {
+            //     console.log(dataObject);                                               // un-comment to see in browser console
+            // };
+            // setInterval(logObject, 500);
+
+            
+
+
+
+// #endregion using data *Outside* socket
