@@ -20,4 +20,4 @@ const client = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@trade');
         // console.log(data)                        
         io.emit('channel1', data);   
 
-    });
+    });  
